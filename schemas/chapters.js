@@ -30,6 +30,10 @@ export default {
               name: 'src_origin',
               type: 'string',
             },
+            {
+              name: 'delete_url',
+              type: 'string',
+            },
           ],
         },
       ],
