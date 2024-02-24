@@ -14,6 +14,18 @@ export default {
     {
       name: 'url',
       type: 'string',
+      type: 'reference',
+      to: [{type: 'incompleteManga', id: 'url'}], // Reference based on 'url' field
+      weak: true,
+    },
+    {
+      name: 'hasNextEp',
+      type: 'boolean',
+      initialValue: 'true',
+    },
+    {
+      name: 'totalEpisodes',
+      type: 'number',
     },
     {
       name: 'data',

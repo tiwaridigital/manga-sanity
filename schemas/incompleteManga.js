@@ -4,12 +4,28 @@ export default {
   type: 'document',
   fields: [
     {
+      name: 'id',
+      type: 'string',
+    },
+    {
+      name: 'srcUrl',
+      type: 'string',
+    },
+    {
       name: 'title',
       type: 'string',
     },
     {
       name: 'alternativeName',
       type: 'string',
+    },
+    {
+      name: 'completedChapters',
+      type: 'number',
+    },
+    {
+      name: 'totalChapters',
+      type: 'number',
     },
     {
       name: 'slug',
@@ -52,13 +68,7 @@ export default {
       type: 'array',
       of: [
         {
-          type: 'object',
-          fields: [
-            {
-              name: 'name',
-              type: 'string',
-            },
-          ],
+          type: 'string',
         },
       ],
     },
@@ -87,20 +97,15 @@ export default {
     },
     {
       name: 'dates',
-      type: 'array',
-      of: [
+      type: 'object',
+      fields: [
         {
-          type: 'object',
-          fields: [
-            {
-              name: 'updatedDate',
-              type: 'string',
-            },
-            {
-              name: 'uploadedDate',
-              type: 'string',
-            },
-          ],
+          name: 'updatedDate',
+          type: 'string',
+        },
+        {
+          name: 'uploadedDate',
+          type: 'string',
         },
       ],
     },
