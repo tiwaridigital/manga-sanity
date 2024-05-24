@@ -4,6 +4,15 @@ export default {
   type: 'document',
   fields: [
     {
+      name: 'isMovedToHasura',
+      title: 'Is Moved To Hasura',
+      type: 'boolean',
+    },
+    {
+      name: 'isPublished',
+      type: 'boolean',
+    },
+    {
       name: 'id',
       type: 'string',
     },
