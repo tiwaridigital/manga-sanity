@@ -9,7 +9,7 @@ export const uploadProgressSchema = {
       title: 'Source URL',
       type: 'string',
       description: 'Original manga URL from the source',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'mangaId',
@@ -21,7 +21,7 @@ export const uploadProgressSchema = {
       name: 'mangaTitle',
       title: 'Manga Title',
       type: 'string',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'mangaSlug',
@@ -43,33 +43,33 @@ export const uploadProgressSchema = {
       title: 'Current Chapter Index',
       type: 'number',
       description: 'Currently uploading chapter (1-based)',
-      validation: Rule => Rule.required().min(1),
+      validation: (Rule) => Rule.required().min(1),
     },
     {
       name: 'totalChapters',
       title: 'Total Chapters',
       type: 'number',
-      validation: Rule => Rule.required().min(1),
+      validation: (Rule) => Rule.required().min(1),
     },
     {
       name: 'completedChapters',
       title: 'Completed Chapters',
       type: 'number',
       description: 'Number of fully uploaded chapters',
-      validation: Rule => Rule.required().min(0),
+      validation: (Rule) => Rule.required().min(0),
     },
     {
       name: 'currentImageIdx',
       title: 'Current Image Index',
       type: 'number',
       description: 'Last uploaded image in current chapter (1-based)',
-      validation: Rule => Rule.required().min(0),
+      validation: (Rule) => Rule.required().min(0),
     },
     {
       name: 'totalImagesInCurrentChapter',
       title: 'Total Images in Current Chapter',
       type: 'number',
-      validation: Rule => Rule.required().min(0),
+      validation: (Rule) => Rule.required().min(0),
     },
     {
       name: 'uploadedImagesInCurrentChapter',
@@ -102,7 +102,7 @@ export const uploadProgressSchema = {
               id: 'id',
               url: 'src_origin',
             },
-            prepare({ id, url }) {
+            prepare({id, url}) {
               return {
                 title: `Image ${id}`,
                 subtitle: url,
@@ -113,31 +113,68 @@ export const uploadProgressSchema = {
       ],
     },
     {
+      name: 'allChaptersImages',
+      title: 'All Chapters Images',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'chapterIndex',
+              title: 'Chapter Index',
+              type: 'number',
+            },
+            {
+              name: 'totalImages',
+              title: 'Total Images',
+              type: 'number',
+            },
+            {
+              name: 'images',
+              title: 'Images',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  fields: [
+                    {name: 'id', type: 'number'},
+                    {name: 'src_origin', type: 'string'},
+                    {name: 'delete_url', type: 'string'},
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
       name: 'status',
       title: 'Status',
       type: 'string',
       options: {
         list: [
-          { title: 'In Progress', value: 'in_progress' },
-          { title: 'Completed', value: 'completed' },
-          { title: 'Failed', value: 'failed' },
+          {title: 'In Progress', value: 'in_progress'},
+          {title: 'Completed', value: 'completed'},
+          {title: 'Failed', value: 'failed'},
         ],
         layout: 'radio',
       },
       initialValue: 'in_progress',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'lastUpdated',
       title: 'Last Updated',
       type: 'datetime',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'startedAt',
       title: 'Started At',
       type: 'datetime',
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'completedAt',
@@ -175,10 +212,10 @@ export const uploadProgressSchema = {
       status: 'status',
       lastUpdated: 'lastUpdated',
     },
-    prepare({ title, currentChapter, totalChapters, status, lastUpdated }) {
-      const progress = ((currentChapter - 1) / totalChapters * 100).toFixed(1)
+    prepare({title, currentChapter, totalChapters, status, lastUpdated}) {
+      const progress = (((currentChapter - 1) / totalChapters) * 100).toFixed(1)
       const statusIcon = status === 'completed' ? '✅' : status === 'failed' ? '❌' : '⏳'
-      
+
       return {
         title: `${statusIcon} ${title}`,
         subtitle: `Ch ${currentChapter}/${totalChapters} (${progress}%) • ${new Date(lastUpdated).toLocaleString()}`,
@@ -189,12 +226,12 @@ export const uploadProgressSchema = {
     {
       title: 'Last Updated',
       name: 'lastUpdatedDesc',
-      by: [{ field: 'lastUpdated', direction: 'desc' }],
+      by: [{field: 'lastUpdated', direction: 'desc'}],
     },
     {
       title: 'Progress',
       name: 'progressAsc',
-      by: [{ field: 'currentChapterIdx', direction: 'asc' }],
+      by: [{field: 'currentChapterIdx', direction: 'asc'}],
     },
   ],
 }
