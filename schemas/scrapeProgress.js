@@ -28,16 +28,28 @@ export default {
         timeFormat: 'HH:mm',
       },
     },
+    {
+      name: 'lastMangaId',
+      title: 'Last Processed Manga ID',
+      type: 'string',
+      description: 'The ID of the last manga successfully processed (or queued)',
+    },
+    {
+      name: 'lastMangaTitle',
+      title: 'Last Processed Manga Title',
+      type: 'string',
+    },
   ],
   preview: {
     select: {
       title: 'provider',
       subtitle: 'lastPage',
+      lastManga: 'lastMangaTitle',
     },
-    prepare({title, subtitle}) {
+    prepare({title, subtitle, lastManga}) {
       return {
         title: `${title} Progress`,
-        subtitle: `Last Page: ${subtitle}`,
+        subtitle: `Page: ${subtitle} | Last: ${lastManga || 'None'}`,
       }
     },
   },

@@ -5,5 +5,6 @@ import { chaptersSchema } from "./chapters"
 import { incompleteMangaSchema } from "./incompleteManga"
 import { singleMangSchema } from "./singleMang"
 import { uploadProgressSchema } from "./uploadProgress"
+import scrapeProgress from "./scrapeProgress"
 
-export const schemaTypes = [chaptersSchema, incompleteMangaSchema, uploadProgressSchema, singleMangSchema]
+export const schemaTypes = [chaptersSchema, incompleteMangaSchema, uploadProgressSchema, singleMangSchema, scrapeProgress]
